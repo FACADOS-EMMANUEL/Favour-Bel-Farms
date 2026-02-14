@@ -1969,4 +1969,16 @@ body {
         flex-shrink: 0;
         object-fit: cover;
     }
+
+    .product-line {
+        width: 3px;
+    }
+
+    .pim {
+        width: 7px;
+    }
+
+    .faq-line {
+        width: 10px;
+    }
 }
