@@ -259,3 +259,45 @@ closeBtn.addEventListener('click', () => {
     menuBtn.style.display = 'block';
 });
 
+// Seedlings Carousel Functionality
+const seedlingSlides = document.querySelectorAll('.SeedlingsSlider > div');
+const seedlingsNextBtn = document.querySelector('.seedlings-next');
+const seedlingsPrevBtn = document.querySelector('.seedlings-prev');
+
+if (seedlingSlides.length > 0 && seedlingsNextBtn && seedlingsPrevBtn) {
+    let seedlingCurrentIndex = 0;
+
+    function showSeedlingSlide(index) {
+        if (index >= seedlingSlides.length) {
+            seedlingCurrentIndex = 0;
+        } else if (index < 0) {
+            seedlingCurrentIndex = seedlingSlides.length - 1;
+        } else {
+            seedlingCurrentIndex = index;
+        }
+
+        seedlingSlides.forEach((slide, i) => {
+            slide.style.transform = `translateX(${(i - seedlingCurrentIndex) * 20}%)`;
+            slide.style.transition = "transform 0.3s ease-in-out";
+        });
+    }
+
+    showSeedlingSlide(seedlingCurrentIndex);
+
+    seedlingsNextBtn.addEventListener('click', () => {
+        showSeedlingSlide(seedlingCurrentIndex + 1);
+    });
+
+    seedlingsPrevBtn.addEventListener('click', () => {
+        showSeedlingSlide(seedlingCurrentIndex - 1);
+    });
+
+    // Auto slide - faster on mobile (2 seconds), normal on desktop (4 seconds)
+    const isMobile = window.innerWidth <= 480;
+    const slideInterval = isMobile ? 2000 : 4000;
+
+    setInterval(() => {
+        showSeedlingSlide(seedlingCurrentIndex + 1);
+    }, slideInterval);
+}
+
